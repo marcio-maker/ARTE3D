@@ -3,1560 +3,603 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Plan UI • NEXUS OMNI (Fusion Edition)</title>
+    <title>NEXUS OMNI • Dashboard Completo 3D</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ===== SISTEMA DE DESIGN VIVO ===== */
-        
-        /* 1. SISTEMA DE CORES DINÂMICO */
         :root {
-            /* IDENTIDADE PRINCIPAL - FUSIÃO DOS 3 ESTILOS */
-            --bg-primary: #e8edf0;
-            --surface-primary: rgba(255, 255, 255, 0.85);
-            --text-primary: #0a0a0a;
-            --text-secondary: #4a5568;
-            --accent-primary: #000000;
-            --accent-secondary: #667eea;
-            --accent-tertiary: #00ff88;
-            --accent-glow: rgba(0, 0, 0, 0.08);
-            
-            /* SISTEMA DE PROFUNDIDADE (Glassmorphism + Neomorphism + Geometry) */
-            --depth-1: 0 2px 8px rgba(0, 0, 0, 0.04);
-            --depth-2: 8px 8px 24px rgba(0, 0, 0, 0.06), -8px -8px 24px rgba(255, 255, 255, 0.9);
-            --depth-3: 12px 12px 36px rgba(0, 0, 0, 0.08), -12px -12px 36px rgba(255, 255, 255, 1);
-            --depth-4: 20px 20px 60px rgba(0, 0, 0, 0.1), -20px -20px 60px rgba(255, 255, 255, 1);
-            --depth-inner: inset 4px 4px 12px rgba(0, 0, 0, 0.05), inset -4px -4px 12px rgba(255, 255, 255, 0.8);
-            
-            /* GEOMETRIA FUSION */
-            --radius-small: 12px;
-            --radius-medium: 24px;
-            --radius-large: 36px;
-            --radius-full: 9999px;
-            
-            /* TIMING SISTÊMICO */
-            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-medium: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            
-            /* GRADIENTES DINÂMICOS */
-            --gradient-primary: linear-gradient(135deg, #000000 0%, #333333 50%, #666666 100%);
-            --gradient-accent: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-neon: linear-gradient(90deg, #00ff88, #00ffcc, #00ffff);
-            --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%);
-            --gradient-dark: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
-            
-            /* SISTEMA 3D */
-            --perspective: 1200px;
-            --3d-depth: 60px;
+            --bg: #e8edf0; --surface: rgba(255,255,255,0.85); --text: #0a0a0a; --text-alt: #4a5568;
+            --accent: #000; --accent2: #667eea; --accent3: #00ff88; --glow: rgba(0,0,0,0.08);
+            --depth: 8px 8px 24px rgba(0,0,0,0.06), -8px -8px 24px rgba(255,255,255,0.9);
+            --radius: 36px; --transition: 0.4s cubic-bezier(0.4,0,0.2,1);
         }
-        
-        /* 2. MODO ESCURO DINÂMICO */
-        #theme-toggle:checked ~ * {
-            --bg-primary: #0a0a0a;
-            --surface-primary: rgba(30, 30, 30, 0.85);
-            --text-primary: #ffffff;
-            --text-secondary: #a0aec0;
-            --accent-primary: #ffffff;
-            --accent-secondary: #00ff88;
-            --accent-tertiary: #667eea;
-            --accent-glow: rgba(255, 255, 255, 0.08);
-            
-            --depth-1: 0 2px 8px rgba(0, 0, 0, 0.3);
-            --depth-2: 8px 8px 24px rgba(0, 0, 0, 0.4), -8px -8px 24px rgba(50, 50, 50, 0.5);
-            --depth-3: 12px 12px 36px rgba(0, 0, 0, 0.5), -12px -12px 36px rgba(50, 50, 50, 0.6);
-            --depth-4: 20px 20px 60px rgba(0, 0, 0, 0.6), -20px -20px 60px rgba(50, 50, 50, 0.7);
-            --depth-inner: inset 4px 4px 12px rgba(0, 0, 0, 0.3), inset -4px -4px 12px rgba(50, 50, 50, 0.4);
-            
-            --gradient-glass: linear-gradient(135deg, rgba(40, 40, 40, 0.9) 0%, rgba(40, 40, 40, 0.6) 100%);
+        #theme:checked ~ * {
+            --bg: #000; --surface: rgba(10,10,20,0.95); --text: #fff; --text-alt: #a0c4ff;
+            --accent: #00ffff; --accent2: #ff00ff; --accent3: #00ff88;
+            --depth: 0 0 30px rgba(0,255,255,0.6), 0 0 60px rgba(255,0,255,0.3);
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; transition: var(--transition); }
+        input[type="checkbox"], input[type="radio"] { display: none; }
         
-        /* 3. RESET SISTÊMICO */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+        /* HEADER */
+        .header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 20px 40px;
+            background: var(--surface); backdrop-filter: blur(20px); box-shadow: var(--depth);
+            display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 12px; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; }
+        
+        /* GRID */
+        .grid { padding: 120px 40px 80px; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px; max-width: 1600px; margin: 0 auto; }
+        
+        /* CARDS */
+        .card { position: relative; min-height: 400px; background: var(--surface); border-radius: var(--radius);
+            box-shadow: var(--depth); cursor: pointer; transition: var(--transition); overflow: hidden;
+            backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; justify-content: center; }
+        .card:hover { transform: translateY(-12px) scale(1.02); }
+        .card-content { position: relative; z-index: 2; padding: 32px; height: 100%;
+            display: flex; flex-direction: column; justify-content: space-between;
+            background: linear-gradient(180deg, transparent 0%, var(--surface) 40%); }
+        .card-tag { font-size: 10px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--accent2); padding: 6px 12px; background: var(--glow); border-radius: 999px; }
+        .card-title { font-size: 1.8rem; font-weight: 900; margin: 16px 0 12px; max-width: 70%; }
+        .card-desc { font-size: 14px; color: var(--text-alt); margin-bottom: 24px; }
+        .card-btn { padding: 12px 24px; background: var(--surface); border: none; border-radius: 999px;
+            font-size: 11px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;
+            cursor: pointer; box-shadow: var(--depth); transition: var(--transition); }
+        
+        /* OBJETOS 3D NOS CARDS - AGORA MAIORES (160x160px) */
+        .obj3d { 
+            position: absolute; 
+            width: 160px; 
+            height: 160px; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%) scale(0.95); 
+            transform-style: preserve-3d; 
+            animation: float 12s ease-in-out infinite; 
+            z-index: 1; 
+            opacity: 0.85;
         }
+        @keyframes float { 0%, 100% { transform: translate(-50%, -50%) scale(0.95); } 50% { transform: translate(-50%, -55%) scale(1); } }
         
-        body {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
-            transition: var(--transition-medium);
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(102, 126, 234, 0.05) 0%, transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(0, 255, 136, 0.05) 0%, transparent 25%),
-                radial-gradient(circle at 50% 80%, rgba(0, 0, 0, 0.03) 0%, transparent 20%);
-            position: relative;
-        }
-        
-        /* 4. LOADING SISTÊMICO */
-        .system-loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-primary);
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
+        /* CUBO */
+        .cube { width: 100%; height: 100%; transform-style: preserve-3d; animation: rotate 20s linear infinite; }
+        @keyframes rotate { 0% { transform: rotateX(0) rotateY(0); } 100% { transform: rotateX(360deg) rotateY(360deg); } }
+        .face { 
+            position: absolute; 
+            width: 160px; 
+            height: 160px; 
+            background: rgba(0,0,0,0.8);
+            border: 2px solid rgba(255,255,255,0.2); 
+            display: flex; 
+            align-items: center; 
             justify-content: center;
-            align-items: center;
-            animation: hideLoading 3s forwards;
+            font-size: 24px; 
+            font-weight: 900; 
+            color: white; 
         }
+        .face:nth-child(1) { transform: translateZ(80px); }
+        .face:nth-child(2) { transform: rotateY(90deg) translateZ(80px); }
+        .face:nth-child(3) { transform: rotateY(180deg) translateZ(80px); }
+        .face:nth-child(4) { transform: rotateY(-90deg) translateZ(80px); }
+        .face:nth-child(5) { transform: rotateX(90deg) translateZ(80px); }
+        .face:nth-child(6) { transform: rotateX(-90deg) translateZ(80px); }
         
-        @keyframes hideLoading {
-            0%, 80% { opacity: 1; visibility: visible; }
-            100% { opacity: 0; visibility: hidden; }
-        }
-        
-        .loading-sequence {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 48px;
-        }
-        
-        .loading-dot {
-            width: 12px;
-            height: 12px;
+        /* ESFERA */
+        .sphere { 
+            width: 160px; 
+            height: 160px; 
             border-radius: 50%;
-            background: var(--accent-primary);
-            animation: loadingPulse 1.4s infinite;
+            background: radial-gradient(circle at 30% 30%, var(--accent) 0%, transparent 70%);
+            animation: spin 15s linear infinite; 
+            box-shadow: inset 0 0 60px rgba(0,0,0,0.3), 0 0 40px var(--glow); 
         }
+        @keyframes spin { 0% { transform: rotate(0); } 100% { transform: rotate(360deg); } }
         
-        .loading-dot:nth-child(2) { animation-delay: 0.2s; }
-        .loading-dot:nth-child(3) { animation-delay: 0.4s; }
-        .loading-dot:nth-child(4) { animation-delay: 0.6s; }
-        
-        @keyframes loadingPulse {
-            0%, 100% { transform: scale(0.8); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 1; }
+        /* PIRÂMIDE */
+        .pyramid { 
+            width: 160px; 
+            height: 160px; 
+            transform-style: preserve-3d; 
+            animation: rotate 12s ease-in-out infinite; 
         }
-        
-        .loading-text {
-            font-size: 12px;
-            font-weight: 900;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            margin-bottom: 24px;
-            background: var(--gradient-neon);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: loadingText 2s infinite;
-        }
-        
-        @keyframes loadingText {
-            0%, 100% { letter-spacing: 8px; }
-            50% { letter-spacing: 12px; }
-        }
-        
-        /* 5. CONTROLES OCULTOS */
-        .system-checkbox,
-        .system-radio {
-            display: none;
-        }
-        
-        /* 6. CABEÇALHO SISTÊMICO */
-        .system-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            background: var(--surface-primary);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: var(--depth-1);
-            transition: var(--transition-medium);
-        }
-        
-        #theme-toggle:checked ~ * .system-header {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .logo-system {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        
-        .logo-geometry {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            background: var(--gradient-accent);
-            position: relative;
-            overflow: hidden;
-            animation: logoFloat 4s ease-in-out infinite;
-        }
-        
-        .logo-geometry::before,
-        .logo-geometry::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid var(--accent-primary);
-            border-radius: 8px;
-            animation: logoSpin 10s linear infinite;
-        }
-        
-        .logo-geometry::after {
-            border-radius: 50%;
-            animation-delay: 0.5s;
-            opacity: 0.6;
-        }
-        
-        @keyframes logoFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-8px) rotate(5deg); }
-        }
-        
-        @keyframes logoSpin {
-            0% { transform: rotate(0deg) scale(1); }
-            100% { transform: rotate(360deg) scale(1.1); }
-        }
-        
-        .logo-text {
-            font-size: 12px;
-            font-weight: 900;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-        
-        .system-status {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .status-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--accent-tertiary);
-            animation: statusPulse 2s infinite;
-            position: relative;
-        }
-        
-        .status-indicator::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: var(--accent-tertiary);
-            animation: statusRing 2s infinite;
-        }
-        
-        @keyframes statusPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-        
-        @keyframes statusRing {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(3); opacity: 0; }
-        }
-        
-        .status-text {
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        
-        /* 7. GRID SISTÊMICO */
-        .system-grid {
-            padding: 120px 40px 80px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-        
-        /* 8. CARDS SISTÊMICOS (FUSIÃO PERFEITA) */
-        .system-card {
-            position: relative;
-            min-height: 400px;
-            border-radius: var(--radius-large);
-            background: var(--surface-primary);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: var(--depth-2);
-            overflow: hidden;
-            cursor: pointer;
-            transition: all var(--transition-medium);
-            transform-style: preserve-3d;
-            perspective: var(--perspective);
-        }
-        
-        .system-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent-secondary), transparent);
-        }
-        
-        .system-card:hover {
-            transform: translateY(-12px) scale(1.02) rotateX(2deg);
-            box-shadow: var(--depth-4);
-        }
-        
-        .card-3d-object {
-            position: absolute;
-            width: 140px;
-            height: 140px;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            transform-style: preserve-3d;
-            animation: objectFloat 8s ease-in-out infinite;
-            z-index: 1;
-            opacity: 0.9;
-            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
-        }
-        
-        .system-card:hover .card-3d-object {
-            animation: objectFloatHover 4s ease-in-out infinite;
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-        
-        @keyframes objectFloat {
-            0%, 100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
-            50% { transform: translate(-50%, -50%) translateY(-20px) rotate(10deg); }
-        }
-        
-        @keyframes objectFloatHover {
-            0%, 100% { transform: translate(-50%, -50%) translateY(-10px) rotate(0deg) scale(1.1); }
-            50% { transform: translate(-50%, -50%) translateY(-30px) rotate(20deg) scale(1.2); }
-        }
-        
-        .card-content {
-            position: relative;
-            z-index: 2;
-            padding: 32px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background: linear-gradient(180deg, transparent 0%, var(--surface-primary) 60%);
-        }
-        
-        .card-tag {
-            font-size: 10px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--accent-secondary);
-            display: inline-block;
-            padding: 6px 12px;
-            background: var(--accent-glow);
-            border-radius: var(--radius-full);
-            margin-bottom: 16px;
-        }
-        
-        .card-title {
-            font-size: 2.2rem;
-            font-weight: 900;
-            line-height: 1;
-            margin-bottom: 16px;
-            letter-spacing: -1px;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .card-description {
-            font-size: 14px;
-            line-height: 1.6;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-        }
-        
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .card-button {
-            padding: 12px 24px;
-            background: var(--surface-primary);
-            border: none;
-            border-radius: var(--radius-full);
-            font-size: 11px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--text-primary);
-            cursor: pointer;
-            box-shadow: var(--depth-1);
-            transition: all var(--transition-fast);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .card-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
-            transition: left 0.6s;
-        }
-        
-        .system-card:hover .card-button {
-            background: var(--gradient-accent);
-            color: white;
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
-        }
-        
-        .system-card:hover .card-button::before {
-            left: 100%;
-        }
-        
-        .card-stats {
-            display: flex;
-            gap: 16px;
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-        
-        /* 9. OBJETOS 3D DIVERSIFICADOS (DOS 3 ARQUIVOS) */
-        
-        /* Cube do FINAL */
-        .cube-3d {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            animation: rotateCube 20s linear infinite;
-        }
-        
-        .cube-face {
-            position: absolute;
-            width: 140px;
-            height: 140px;
-            border-radius: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            background: var(--gradient-dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 900;
-            color: white;
-            opacity: 0.9;
-        }
-        
-        .cube-face:nth-child(1) { transform: translateZ(70px); background: var(--gradient-primary); }
-        .cube-face:nth-child(2) { transform: rotateY(90deg) translateZ(70px); background: var(--gradient-accent); }
-        .cube-face:nth-child(3) { transform: rotateY(180deg) translateZ(70px); background: var(--gradient-neon); }
-        .cube-face:nth-child(4) { transform: rotateY(-90deg) translateZ(70px); }
-        .cube-face:nth-child(5) { transform: rotateX(90deg) translateZ(70px); }
-        .cube-face:nth-child(6) { transform: rotateX(-90deg) translateZ(70px); }
-        
-        @keyframes rotateCube {
-            0% { transform: rotateX(0) rotateY(0); }
-            100% { transform: rotateX(360deg) rotateY(360deg); }
-        }
-        
-        /* Icosahedron do CORRIGINDO */
-        .icosahedron-3d {
-            width: 140px;
-            height: 140px;
-            transform-style: preserve-3d;
-            animation: rotateIcosahedron 25s linear infinite;
-        }
-        
-        .icosa-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid var(--accent-primary);
-            opacity: 0.7;
-            clip-path: polygon(50% 0%, 100% 38%, 81% 100%, 19% 100%, 0% 38%);
-        }
-        
-        .icosa-face.f1 { transform: rotateY(0deg) rotateX(35deg); background: linear-gradient(45deg, transparent 30%, var(--accent-primary) 100%); }
-        .icosa-face.f2 { transform: rotateY(72deg) rotateX(35deg); background: linear-gradient(135deg, transparent 30%, var(--accent-secondary) 100%); }
-        .icosa-face.f3 { transform: rotateY(144deg) rotateX(35deg); background: linear-gradient(225deg, transparent 30%, var(--accent-tertiary) 100%); }
-        .icosa-face.f4 { transform: rotateY(216deg) rotateX(35deg); }
-        .icosa-face.f5 { transform: rotateY(288deg) rotateX(35deg); }
-        
-        @keyframes rotateIcosahedron {
-            0% { transform: rotateX(0) rotateY(0); }
-            100% { transform: rotateX(360deg) rotateY(180deg); }
-        }
-        
-        /* Sphere do PROVANDO aprimorada */
-        .sphere-3d {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, 
-                var(--accent-primary) 0%, 
-                var(--accent-secondary) 15%, 
-                var(--accent-tertiary) 30%, 
-                transparent 70%);
-            animation: rotateSphere 15s linear infinite;
-            box-shadow: 
-                inset 0 0 40px rgba(255, 255, 255, 0.3),
-                0 0 40px var(--accent-glow);
-            position: relative;
-        }
-        
-        .sphere-3d::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle at 70% 70%, 
-                rgba(255, 255, 255, 0.1) 0%, 
-                transparent 70%);
-        }
-        
-        @keyframes rotateSphere {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Fractal do CORRIGINDO aprimorado */
-        .fractal-3d {
-            width: 140px;
-            height: 140px;
-            position: relative;
-            animation: fractalAnim 8s infinite alternate ease-in-out;
-        }
-        
-        .fractal-3d::before,
-        .fractal-3d::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid var(--accent-primary);
-            border-radius: 30%;
-            animation: fractalSpin 4s linear infinite;
-        }
-        
-        .fractal-3d::after {
-            width: 70%;
-            height: 70%;
-            top: 15%;
-            left: 15%;
-            border-color: var(--accent-secondary);
-            animation-delay: 0.5s;
-            animation-duration: 3s;
-        }
-        
-        @keyframes fractalAnim {
-            0% { transform: scale(1) rotate(0deg); }
-            100% { transform: scale(1.1) rotate(180deg); }
-        }
-        
-        @keyframes fractalSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Pyramid do FINAL */
-        .pyramid-3d {
-            position: relative;
-            width: 140px;
-            height: 140px;
-            animation: rotatePyramid 12s ease-in-out infinite;
-            transform-style: preserve-3d;
-        }
-        
-        .pyramid-side {
-            position: absolute;
-            width: 0;
-            height: 0;
+        .pside { 
+            position: absolute; 
+            width: 0; 
+            height: 0; 
             border-style: solid;
-            border-width: 0 70px 121px 70px;
-            border-color: transparent transparent var(--accent-primary) transparent;
-            transform-origin: 50% 0%;
-            opacity: 0.8;
+            border-width: 0 80px 138px 80px; 
+            border-color: transparent transparent var(--accent) transparent; 
         }
+        .pside:nth-child(1) { transform: rotateY(0deg); }
+        .pside:nth-child(2) { transform: rotateY(90deg); }
+        .pside:nth-child(3) { transform: rotateY(180deg); }
+        .pside:nth-child(4) { transform: rotateY(270deg); }
         
-        .pyramid-side:nth-child(1) { transform: rotateY(0deg) translateZ(0); border-color: transparent transparent var(--accent-primary) transparent; }
-        .pyramid-side:nth-child(2) { transform: rotateY(90deg) translateZ(0); border-color: transparent transparent var(--accent-secondary) transparent; }
-        .pyramid-side:nth-child(3) { transform: rotateY(180deg) translateZ(0); border-color: transparent transparent var(--accent-primary) transparent; }
-        .pyramid-side:nth-child(4) { transform: rotateY(270deg) translateZ(0); border-color: transparent transparent var(--accent-tertiary) transparent; }
-        
-        @keyframes rotatePyramid {
-            0%, 100% { transform: rotateY(0) scale(1); }
-            50% { transform: rotateY(180deg) scale(1.05); }
-        }
-        
-        /* Torus do FINAL */
-        .torus-3d {
-            width: 140px;
-            height: 140px;
+        /* TORUS */
+        .torus { 
+            width: 160px; 
+            height: 160px; 
             border-radius: 50%;
-            position: relative;
-            animation: rotateTorus 10s linear infinite;
-            background: conic-gradient(from 0deg, 
-                var(--accent-primary), 
-                var(--accent-secondary), 
-                var(--accent-tertiary), 
-                var(--accent-secondary), 
-                var(--accent-primary));
-            box-shadow: 0 0 30px var(--accent-glow);
+            background: conic-gradient(from 0deg, var(--accent), var(--accent2), var(--accent3), var(--accent));
+            animation: rotate 10s linear infinite; 
+            box-shadow: 0 0 40px var(--glow); 
         }
         
-        @keyframes rotateTorus {
-            0% { transform: rotateX(0) rotateY(0); }
-            100% { transform: rotateX(360deg) rotateY(360deg); }
-        }
-        
-        /* 10. SISTEMA DE MODAIS IMERSIVOS */
-        .modal-system {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        /* MODAIS */
+        .modal { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
             z-index: 10000;
+            background: rgba(0,0,0,0.95); 
+            backdrop-filter: blur(10px); 
             display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            animation: fadeIn var(--transition-medium);
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+        }
+        #m1:checked ~ .modal[data-modal="1"], #m2:checked ~ .modal[data-modal="2"],
+        #m3:checked ~ .modal[data-modal="3"], #m4:checked ~ .modal[data-modal="4"],
+        #m5:checked ~ .modal[data-modal="5"], #m6:checked ~ .modal[data-modal="6"],
+        #m7:checked ~ .modal[data-modal="7"], #m8:checked ~ .modal[data-modal="8"],
+        #m9:checked ~ .modal[data-modal="9"], #m10:checked ~ .modal[data-modal="10"],
+        #m11:checked ~ .modal[data-modal="11"], #m12:checked ~ .modal[data-modal="12"] { display: flex; }
+        
+        .modal-content { 
+            background: var(--surface); 
+            border-radius: var(--radius); 
+            padding: 40px;
+            max-width: 900px; 
+            width: 100%; 
+            box-shadow: var(--depth); 
+            color: var(--text); /* GARANTINDO COR DO TEXTO NO MODO ESCURO */
         }
         
-        /* Lógica de abertura dos modais */
-        #modal-1:checked ~ .modal-system[data-modal="1"],
-        #modal-2:checked ~ .modal-system[data-modal="2"],
-        #modal-3:checked ~ .modal-system[data-modal="3"],
-        #modal-4:checked ~ .modal-system[data-modal="4"],
-        #modal-5:checked ~ .modal-system[data-modal="5"],
-        #modal-6:checked ~ .modal-system[data-modal="6"],
-        #modal-7:checked ~ .modal-system[data-modal="7"],
-        #modal-8:checked ~ .modal-system[data-modal="8"],
-        #modal-9:checked ~ .modal-system[data-modal="9"],
-        #modal-10:checked ~ .modal-system[data-modal="10"],
-        #modal-11:checked ~ .modal-system[data-modal="11"],
-        #modal-12:checked ~ .modal-system[data-modal="12"] {
-            display: flex;
+        .modal-title { 
+            font-size: 3rem; 
+            font-weight: 900; 
+            margin-bottom: 20px; 
+            color: var(--text); /* GARANTINDO COR BRANCA NO MODO ESCURO */
         }
         
-        /* Desfoque do conteúdo principal */
-        #modal-1:checked ~ .system-grid,
-        #modal-2:checked ~ .system-grid,
-        #modal-3:checked ~ .system-grid,
-        #modal-4:checked ~ .system-grid,
-        #modal-5:checked ~ .system-grid,
-        #modal-6:checked ~ .system-grid,
-        #modal-7:checked ~ .system-grid,
-        #modal-8:checked ~ .system-grid,
-        #modal-9:checked ~ .system-grid,
-        #modal-10:checked ~ .system-grid,
-        #modal-11:checked ~ .system-grid,
-        #modal-12:checked ~ .system-grid {
-            opacity: 0.2;
-            filter: blur(4px);
-            pointer-events: none;
-        }
-        
-        .modal-backdrop {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--bg-primary);
-            opacity: 0.95;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-        
-        .modal-container {
-            position: relative;
-            z-index: 2;
-            max-width: 1200px;
-            width: 100%;
-            max-height: 90vh;
-            background: var(--surface-primary);
-            border-radius: var(--radius-large);
-            box-shadow: var(--depth-4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-            animation: modalSlideIn var(--transition-bounce);
-        }
-        
-        @keyframes modalSlideIn {
-            from { transform: translateY(40px) scale(0.95); opacity: 0; }
-            to { transform: translateY(0) scale(1); opacity: 1; }
-        }
-        
-        .modal-header {
-            padding: 40px 40px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-        
-        .modal-close {
-            width: 40px;
+        .modal-close { 
+            position: absolute; 
+            top: 20px; 
+            right: 20px; 
+            width: 40px; 
             height: 40px;
-            border-radius: 50%;
-            background: var(--surface-primary);
-            display: flex;
+            background: var(--surface); 
+            border-radius: 50%; 
+            display: flex; 
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: var(--depth-1);
-            transition: all var(--transition-fast);
-            font-size: 20px;
-            font-weight: 200;
+            justify-content: center; 
+            cursor: pointer; 
+            font-size: 24px; 
+            color: var(--text); /* GARANTINDO COR BRANCA NO MODO ESCURO */
         }
         
-        .modal-close:hover {
-            transform: rotate(90deg);
-            box-shadow: var(--depth-2);
-        }
-        
-        .modal-title {
-            font-size: 3.5rem;
-            font-weight: 900;
-            line-height: 1;
-            letter-spacing: -2px;
-            margin-bottom: 16px;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .modal-subtitle {
-            font-size: 14px;
-            color: var(--text-secondary);
-            max-width: 600px;
-            line-height: 1.6;
-        }
-        
-        .modal-content {
-            padding: 40px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            overflow-y: auto;
-            max-height: 60vh;
-        }
-        
-        .modal-3d-display {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 300px;
-            background: var(--gradient-glass);
-            border-radius: var(--radius-medium);
-            box-shadow: var(--depth-inner);
-            padding: 40px;
-        }
-        
-        .modal-3d-large {
-            width: 200px;
-            height: 200px;
-        }
-        
-        .modal-features {
-            list-style: none;
-        }
-        
-        .modal-features li {
-            padding: 16px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            color: var(--text-primary);
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            transition: var(--transition-fast);
-        }
-        
-        #theme-toggle:checked ~ * .modal-features li {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .modal-features li:hover {
-            transform: translateX(8px);
-            color: var(--accent-secondary);
-        }
-        
-        .modal-features li::before {
-            content: "▶";
-            margin-right: 12px;
-            font-size: 10px;
-            color: var(--accent-tertiary);
-            transition: var(--transition-fast);
-        }
-        
-        .modal-features li:hover::before {
-            transform: scale(1.5);
-        }
-        
-        .modal-footer {
-            padding: 0 40px 40px;
-            display: flex;
-            gap: 16px;
-        }
-        
-        .modal-button {
-            padding: 16px 32px;
-            background: var(--surface-primary);
-            border: none;
-            border-radius: var(--radius-full);
-            font-size: 12px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-shadow: var(--depth-1);
-            transition: all var(--transition-fast);
+        /* CONTAINER 3D NOS MODAIS - AGORA MASSIVO (400px altura) */
+        .modal-3d { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 400px;
+            background: var(--glow); 
+            border-radius: var(--radius); 
+            margin: 30px 0;
             position: relative;
             overflow: hidden;
         }
         
-        .modal-button.primary {
-            background: var(--gradient-accent);
-            color: white;
-            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
-        }
-        
-        .modal-button:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--depth-3);
-        }
-        
-        .modal-button:active {
-            transform: translateY(0);
-        }
-        
-        /* 11. SISTEMA DE NOTIFICAÇÃO */
-        .notification-system {
-            position: fixed;
-            top: 100px;
-            right: 40px;
-            z-index: 10001;
-            pointer-events: none;
-        }
-        
-        .toast-message {
-            padding: 16px 24px;
-            background: var(--surface-primary);
-            border-radius: var(--radius-medium);
-            box-shadow: var(--depth-3);
-            margin-bottom: 12px;
-            transform: translateX(100%);
-            opacity: 0;
-            transition: all var(--transition-bounce);
-            border-left: 4px solid var(--accent-tertiary);
-            max-width: 300px;
-        }
-        
-        #theme-toggle:checked ~ .toast-message,
-        #modal-1:checked ~ .toast-message,
-        #modal-2:checked ~ .toast-message,
-        #modal-3:checked ~ .toast-message,
-        #modal-4:checked ~ .toast-message,
-        #modal-5:checked ~ .toast-message,
-        #modal-6:checked ~ .toast-message,
-        #modal-7:checked ~ .toast-message,
-        #modal-8:checked ~ .toast-message,
-        #modal-9:checked ~ .toast-message,
-        #modal-10:checked ~ .toast-message,
-        #modal-11:checked ~ .toast-message,
-        #modal-12:checked ~ .toast-message {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        
-        .toast-message::after {
-            content: '';
-            position: absolute;
-            top: 0;
+        /* OBJETOS 3D NOS MODAIS - AGORA GIGANTES (300x300px) */
+        .modal-3d .obj3d { 
+            position: relative; 
+            width: 300px; 
+            height: 300px; 
+            top: 0; 
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
-            animation: toastShine 2s infinite;
+            transform: none;
+            animation: float-modal 8s ease-in-out infinite;
         }
         
-        @keyframes toastShine {
-            0% { left: -100%; }
-            100% { left: 100%; }
+        @keyframes float-modal { 
+            0%, 100% { transform: translateY(0) rotate(0); } 
+            50% { transform: translateY(-20px) rotate(5deg); } 
         }
         
-        /* 12. PAINEL DE CONTROLE */
-        .control-panel {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        /* CUBO MODAL */
+        .modal-3d .cube { width: 100%; height: 100%; }
+        .modal-3d .face { 
+            width: 300px; 
+            height: 300px; 
+            font-size: 48px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+        }
+        .modal-3d .face:nth-child(1) { transform: translateZ(150px); }
+        .modal-3d .face:nth-child(2) { transform: rotateY(90deg) translateZ(150px); }
+        .modal-3d .face:nth-child(3) { transform: rotateY(180deg) translateZ(150px); }
+        .modal-3d .face:nth-child(4) { transform: rotateY(-90deg) translateZ(150px); }
+        .modal-3d .face:nth-child(5) { transform: rotateX(90deg) translateZ(150px); }
+        .modal-3d .face:nth-child(6) { transform: rotateX(-90deg) translateZ(150px); }
+        
+        /* ESFERA MODAL */
+        .modal-3d .sphere { 
+            width: 300px; 
+            height: 300px; 
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.5), 0 0 80px var(--glow);
         }
         
-        .control-button {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: var(--surface-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: var(--depth-3);
-            transition: all var(--transition-bounce);
-            font-size: 20px;
-            color: var(--text-primary);
-            position: relative;
+        /* PIRÂMIDE MODAL */
+        .modal-3d .pyramid { width: 300px; height: 300px; }
+        .modal-3d .pside { 
+            border-width: 0 150px 260px 150px; 
         }
         
-        .control-button:hover {
-            transform: translateY(-4px) scale(1.1);
-            box-shadow: var(--depth-4);
+        /* TORUS MODAL */
+        .modal-3d .torus { 
+            width: 300px; 
+            height: 300px; 
+            box-shadow: 0 0 60px var(--glow);
         }
         
-        .control-button:active {
-            transform: translateY(0) scale(0.95);
-            box-shadow: var(--depth-inner);
+        /* TEXTO DO MODAL - GARANTINDO LEGIBILIDADE */
+        .modal-content p {
+            color: var(--text); /* GARANTINDO COR BRANCA NO MODO ESCURO */
+            font-size: 16px;
+            line-height: 1.6;
+            margin-top: 20px;
         }
         
-        .control-button.theme::after {
-            content: "☀️";
-            font-size: 24px;
-        }
+        /* CONTROLES */
+        .controls { position: fixed; bottom: 40px; right: 40px; z-index: 1000;
+            display: flex; flex-direction: column; gap: 12px; }
+        .ctrl-btn { width: 56px; height: 56px; border-radius: 50%; background: var(--surface);
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            box-shadow: var(--depth); transition: var(--transition); font-size: 20px; }
+        .ctrl-btn:hover { transform: translateY(-4px) scale(1.1); }
         
-        #theme-toggle:checked ~ * .control-button.theme::after {
-            content: "🌙";
-        }
-        
-        .control-button.confirm {
-            background: var(--gradient-neon);
-            color: white;
-        }
-        
-        /* 13. RESPONSIVIDADE */
-        @media (max-width: 1200px) {
-            .system-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                padding: 120px 20px 80px;
-            }
-            
-            .modal-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            
-            .modal-3d-display {
-                order: -1;
-                min-height: 250px;
-            }
-        }
+        /* NEON EFFECTS */
+        #theme:checked ~ * .card { border: 1px solid rgba(0,255,255,0.3);
+            box-shadow: 0 0 20px rgba(0,255,255,0.4), 0 0 40px rgba(255,0,255,0.2); }
+        #theme:checked ~ * .card:hover { box-shadow: 0 0 40px rgba(0,255,255,0.8), 0 0 80px rgba(255,0,255,0.5); }
+        #theme:checked ~ * .face { background: rgba(0,255,255,0.3); border: 2px solid rgba(0,255,255,0.6);
+            box-shadow: 0 0 30px rgba(0,255,255,0.6); text-shadow: 0 0 20px rgba(0,255,255,1); }
+        #theme:checked ~ * .sphere { background: radial-gradient(circle at 30% 30%, #00ffff 0%, #ff00ff 15%, transparent 70%);
+            box-shadow: inset 0 0 60px rgba(0,255,255,0.8), 0 0 60px rgba(0,255,255,0.8); }
+        #theme:checked ~ * .pside { border-color: transparent transparent rgba(0,255,255,0.8) transparent; }
+        #theme:checked ~ * .torus { background: conic-gradient(from 0deg, #00ffff, #ff00ff, #00ff88, #00ffff); }
         
         @media (max-width: 768px) {
-            .system-header {
-                padding: 16px 20px;
-            }
+            .grid { grid-template-columns: 1fr; padding: 100px 16px 60px; }
+            .card { min-height: 350px; }
+            .card-title { font-size: 1.5rem; max-width: 60%; }
             
-            .system-grid {
-                grid-template-columns: 1fr;
-                padding: 100px 16px 60px;
-                gap: 20px;
-            }
+            /* CARDS MOBILE - 120x120px */
+            .obj3d { width: 120px; height: 120px; opacity: 0.9; }
+            .face { width: 120px; height: 120px; font-size: 20px; }
+            .face:nth-child(1) { transform: translateZ(60px); }
+            .face:nth-child(2) { transform: rotateY(90deg) translateZ(60px); }
+            .face:nth-child(3) { transform: rotateY(180deg) translateZ(60px); }
+            .face:nth-child(4) { transform: rotateY(-90deg) translateZ(60px); }
+            .face:nth-child(5) { transform: rotateX(90deg) translateZ(60px); }
+            .face:nth-child(6) { transform: rotateX(-90deg) translateZ(60px); }
             
-            .system-card {
-                min-height: 350px;
-            }
+            .sphere, .pyramid, .torus { width: 120px; height: 120px; }
+            .pside { border-width: 0 60px 104px 60px; }
             
-            .card-title {
-                font-size: 1.8rem;
-            }
+            /* MODAIS MOBILE - 200x200px */
+            .modal-3d { min-height: 300px; }
+            .modal-3d .obj3d { width: 200px; height: 200px; }
+            .modal-3d .face { width: 200px; height: 200px; font-size: 32px; }
+            .modal-3d .face:nth-child(1) { transform: translateZ(100px); }
+            .modal-3d .face:nth-child(2) { transform: rotateY(90deg) translateZ(100px); }
+            .modal-3d .face:nth-child(3) { transform: rotateY(180deg) translateZ(100px); }
+            .modal-3d .face:nth-child(4) { transform: rotateY(-90deg) translateZ(100px); }
+            .modal-3d .face:nth-child(5) { transform: rotateX(90deg) translateZ(100px); }
+            .modal-3d .face:nth-child(6) { transform: rotateX(-90deg) translateZ(100px); }
             
-            .modal-header {
-                padding: 24px 24px 0;
-            }
+            .modal-3d .sphere { width: 200px; height: 200px; }
+            .modal-3d .pyramid { width: 200px; height: 200px; }
+            .modal-3d .pside { border-width: 0 100px 173px 100px; }
+            .modal-3d .torus { width: 200px; height: 200px; }
             
-            .modal-title {
-                font-size: 2.5rem;
-            }
-            
-            .modal-content {
-                padding: 24px;
-                gap: 24px;
-            }
-            
-            .modal-footer {
-                padding: 0 24px 24px;
-                flex-direction: column;
-            }
-            
-            .modal-button {
-                width: 100%;
-                text-align: center;
-            }
-            
-            .control-panel {
-                bottom: 20px;
-                right: 20px;
-            }
-            
-            .control-button {
-                width: 48px;
-                height: 48px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .card-content {
-                padding: 24px;
-            }
-            
-            .card-title {
-                font-size: 1.6rem;
-            }
-            
-            .card-stats {
-                flex-direction: column;
-                gap: 8px;
-            }
-            
-            .modal-title {
-                font-size: 2rem;
-            }
-            
-            .modal-3d-large {
-                width: 150px;
-                height: 150px;
-            }
-        }
-        
-        /* 14. ANIMAÇÕES DO SISTEMA */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        /* 15. UTILITÁRIOS */
-        .gradient-text {
-            background: var(--gradient-neon);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .glass-effect {
-            background: var(--surface-primary);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .depth-effect {
-            box-shadow: var(--depth-3);
-        }
-        
-        .depth-effect:hover {
-            box-shadow: var(--depth-4);
+            .modal-title { font-size: 2rem; }
+            .modal-content { padding: 30px 20px; }
         }
     </style>
 </head>
 <body>
-    
-    <!-- ===== SISTEMA DE CONTROLE ===== -->
-    <!-- Tema -->
-    <input type="checkbox" id="theme-toggle" class="system-checkbox">
-    
-    <!-- Confirmação -->
-    <input type="checkbox" id="confirm-action" class="system-checkbox">
-    
-    <!-- Modais -->
-    <input type="radio" name="modal" id="modal-1" class="system-radio">
-    <input type="radio" name="modal" id="modal-2" class="system-radio">
-    <input type="radio" name="modal" id="modal-3" class="system-radio">
-    <input type="radio" name="modal" id="modal-4" class="system-radio">
-    <input type="radio" name="modal" id="modal-5" class="system-radio">
-    <input type="radio" name="modal" id="modal-6" class="system-radio">
-    <input type="radio" name="modal" id="modal-7" class="system-radio">
-    <input type="radio" name="modal" id="modal-8" class="system-radio">
-    <input type="radio" name="modal" id="modal-9" class="system-radio">
-    <input type="radio" name="modal" id="modal-10" class="system-radio">
-    <input type="radio" name="modal" id="modal-11" class="system-radio">
-    <input type="radio" name="modal" id="modal-12" class="system-radio">
-    <input type="radio" name="modal" id="modal-none" class="system-radio" checked>
-    
-    <!-- ===== LOADING DO SISTEMA ===== -->
-    <div class="system-loading">
-        <div class="loading-sequence">
-            <div class="loading-dot"></div>
-            <div class="loading-dot"></div>
-            <div class="loading-dot"></div>
-            <div class="loading-dot"></div>
-        </div>
-        <div class="loading-text">NEXUS SYSTEM</div>
-        <div style="font-size: 10px; color: var(--text-secondary); letter-spacing: 4px;">INITIALIZING...</div>
+    <input type="checkbox" id="theme">
+    <input type="radio" name="m" id="m1"> <input type="radio" name="m" id="m2"> <input type="radio" name="m" id="m3">
+    <input type="radio" name="m" id="m4"> <input type="radio" name="m" id="m5"> <input type="radio" name="m" id="m6">
+    <input type="radio" name="m" id="m7"> <input type="radio" name="m" id="m8"> <input type="radio" name="m" id="m9">
+    <input type="radio" name="m" id="m10"> <input type="radio" name="m" id="m11"> <input type="radio" name="m" id="m12">
+    <input type="radio" name="m" id="close" checked>
+
+    <div class="header">
+        <div class="logo">MAKER-STUDIOIA</div>
+        <div style="font-size:10px; font-weight:700;">FUSION MODE • v5.0</div>
     </div>
-    
-    <!-- ===== NOTIFICAÇÕES ===== -->
-    <div class="notification-system">
-        <div class="toast-message">🔄 SISTEMA INICIADO • FUSION ACTIVE</div>
+
+    <div class="grid">
+        <!-- CARD 1 -->
+        <label for="m1" class="card">
+            <div class="obj3d"><div class="cube">
+                <div class="face">3D</div><div class="face">CSS</div><div class="face">WEB</div>
+                <div class="face">DEV</div><div class="face">UI</div><div class="face">UX</div>
+            </div></div>
+            <div class="card-content">
+                <div><span class="card-tag">SYSTEM CORE</span>
+                <h2 class="card-title">Geometry Engine</h2>
+                <p class="card-desc">Sistema de renderização 3D em CSS puro com formas geométricas únicas.</p></div>
+                <button class="card-btn">EXPLORE 3D</button>
+            </div>
+        </label>
+
+        <!-- CARD 2 -->
+        <label for="m2" class="card">
+            <div class="obj3d"><div class="sphere"></div></div>
+            <div class="card-content">
+                <div><span class="card-tag">VISUAL SYSTEM</span>
+                <h2 class="card-title">Titanium Glass</h2>
+                <p class="card-desc">Glassmorphism avançado com efeitos de profundidade realista.</p></div>
+                <button class="card-btn">EXPLORE GLASS</button>
+            </div>
+        </label>
+
+        <!-- CARD 3 -->
+        <label for="m3" class="card">
+            <div class="obj3d"><div class="pyramid">
+                <div class="pside"></div><div class="pside"></div><div class="pside"></div><div class="pside"></div>
+            </div></div>
+            <div class="card-content">
+                <div><span class="card-tag">ARCHITECTURE</span>
+                <h2 class="card-title">Sacred Geometry</h2>
+                <p class="card-desc">Formas arquitetônicas com proporções matemáticas perfeitas.</p></div>
+                <button class="card-btn">EXPLORE SACRED</button>
+            </div>
+        </label>
+
+        <!-- CARD 4 -->
+        <label for="m4" class="card">
+            <div class="obj3d"><div class="torus"></div></div>
+            <div class="card-content">
+                <div><span class="card-tag">ENERGY SYSTEM</span>
+                <h2 class="card-title">Infinite Torus</h2>
+                <p class="card-desc">Forma de energia contínua com animação infinita.</p></div>
+                <button class="card-btn">EXPLORE ENERGY</button>
+            </div>
+        </label>
+
+        <!-- CARD 5 -->
+        <label for="m5" class="card">
+            <div class="obj3d"><div class="sphere"></div></div>
+            <div class="card-content">
+                <div><span class="card-tag">ORGANIC SYSTEM</span>
+                <h2 class="card-title">Organic Sphere</h2>
+                <p class="card-desc">Formas orgânicas com gradientes radiais complexos.</p></div>
+                <button class="card-btn">EXPLORE ORGANIC</button>
+            </div>
+        </label>
+
+        <!-- CARD 6 -->
+        <label for="m6" class="card">
+            <div class="obj3d"><div class="cube">
+                <div class="face">UI</div><div class="face">UX</div><div class="face">3D</div>
+                <div class="face">CSS</div><div class="face">WEB</div><div class="face">DEV</div>
+            </div></div>
+            <div class="card-content">
+                <div><span class="card-tag">INTERACTION</span>
+                <h2 class="card-title">Tactile UI</h2>
+                <p class="card-desc">Sistema de interação tátil com física de pressão em tempo real.</p></div>
+                <button class="card-btn">EXPLORE TACTILE</button>
+            </div>
+        </label>
+
+        <!-- CARD 7 -->
+        <label for="m7" class="card">
+            <div class="obj3d"><div class="pyramid">
+                <div class="pside"></div><div class="pside"></div><div class="pside"></div><div class="pside"></div>
+            </div></div>
+            <div class="card-content">
+                <div><span class="card-tag">PORTFOLIO</span>
+                <h2 class="card-title">Showcase 2026</h2>
+                <p class="card-desc">Coleção de projetos visionários do próximo ano.</p></div>
+                <button class="card-btn">EXPLORE WORK</button>
+            </div>
+        </label>
+
+        <!-- CARD 8 -->
+        <label for="m8" class="card">
+            <div class="obj3d"><div class="torus"></div></div>
+            <div class="card-content">
+                <div><span class="card-tag">TECH STACK</span>
+                <h2 class="card-title">High Performance</h2>
+                <p class="card-desc">Stack tecnológico otimizado para velocidade extrema.</p></div>
+                <button class="card-btn">EXPLORE TECH</button>
+            </div>
+        </label>
+
+        <!-- CARD 9 -->
+        <label for="m9" class="card">
+            <div class="obj3d"><div class="sphere"></div></div>
+            <div class="card-content">
+                <div><span class="card-tag">DESIGN SYSTEM</span>
+                <h2 class="card-title">Brand Identity</h2>
+                <p class="card-desc">Sistema completo de identidade visual unificado.</p></div>
+                <button class="card-btn">EXPLORE BRAND</button>
+            </div>
+        </label>
+
+        <!-- CARD 10 -->
+        <label for="m10" class="card">
+            <div class="obj3d"><div class="cube">
+                <div class="face">AI</div><div class="face">ML</div><div class="face">3D</div>
+                <div class="face">CSS</div><div class="face">WEB</div><div class="face">DEV</div>
+            </div></div>
+            <div class="card-content">
+                <div><span class="card-tag">AI SYSTEM</span>
+                <h2 class="card-title">Neural Assistant</h2>
+                <p class="card-desc">Assistente inteligente para otimização de workflows.</p></div>
+                <button class="card-btn">EXPLORE AI</button>
+            </div>
+        </label>
+
+        <!-- CARD 11 -->
+        <label for="m11" class="card">
+            <div class="obj3d"><div class="pyramid">
+                <div class="pside"></div><div class="pside"></div><div class="pside"></div><div class="pside"></div>
+            </div></div>
+            <div class="card-content">
+                <div><span class="card-tag">DIGITAL ASSETS</span>
+                <h2 class="card-title">Premium Shop</h2>
+                <p class="card-desc">Ativos digitais exclusivos para projetos criativos.</p></div>
+                <button class="card-btn">EXPLORE SHOP</button>
+            </div>
+        </label>
+
+        <!-- CARD 12 -->
+        <label for="m12" class="card">
+            <div class="obj3d"><div class="torus"></div></div>
+            <div class="card-content">
+                <div><span class="card-tag">INFRASTRUCTURE</span>
+                <h2 class="card-title">Cloud System</h2>
+                <p class="card-desc">Infraestrutura escalável em nuvem para projetos.</p></div>
+                <button class="card-btn">EXPLORE CLOUD</button>
+            </div>
+        </label>
     </div>
-    
-    <!-- ===== CABEÇALHO DO SISTEMA ===== -->
-    <div class="system-header">
-        <div class="logo-system">
-            <div class="logo-geometry"></div>
-            <div class="logo-text">NEXUS • OMNI</div>
-        </div>
-        <div class="system-status">
-            <div class="status-indicator"></div>
-            <div class="status-text">FUSION MODE • v5.0</div>
-        </div>
-    </div>
-    
-    <!-- ===== GRADE DE CARDS ===== -->
-    <div class="system-grid">
-        
-        <!-- Card 1: Cube System -->
-        <label for="modal-1" class="system-card">
-            <div class="card-3d-object">
-                <div class="cube-3d">
-                    <div class="cube-face">3D</div>
-                    <div class="cube-face">CSS</div>
-                    <div class="cube-face">OMNI</div>
-                    <div class="cube-face">NEXUS</div>
-                    <div class="cube-face">FUSION</div>
-                    <div class="cube-face">2026</div>
-                </div>
-            </div>
-            <div class="card-content">
-                <div>
-                    <span class="card-tag">SYSTEM CORE</span>
-                    <h2 class="card-title">Geometry Engine</h2>
-                    <p class="card-description">Sistema de renderização 3D em CSS puro com 12 formas geométricas únicas e animações complexas.</p>
-                </div>
-                <div class="card-footer">
-                    <button class="card-button">EXPLORE 3D</button>
-                    <div class="card-stats">
-                        <span>⚡ 60 FPS</span>
-                        <span>🔷 12 Shapes</span>
-                    </div>
-                </div>
-            </div>
-        </label>
-        
-        <!-- Card 2: Glass System -->
-        <label for="modal-2" class="system-card">
-            <div class="card-3d-object">
-                <div class="icosahedron-3d">
-                    <div class="icosa-face f1"></div>
-                    <div class="icosa-face f2"></div>
-                    <div class="icosa-face f3"></div>
-                    <div class="icosa-face f4"></div>
-                    <div class="icosa-face f5"></div>
-                </div>
-            </div>
-            <div class="card-content">
-                <div>
-                    <span class="card-tag">VISUAL SYSTEM</span>
-                    <h2 class="card-title">Titanium Glass</h2>
-                    <p class="card-description">Glassmorphism avançado com efeitos de profundidade realista e transparências dinâmicas.</p>
-                </div>
-                <div class="card-footer">
-                    <button class="card-button">EXPLORE GLASS</button>
-                    <div class="card-stats">
-                        <span>✨ Blur 20px</span>
-                        <span>🌈 Gradients</span>
-                    </div>
-                </div>
-            </div>
-        </label>
-        
-        <!-- Card 3: Fractal System -->
-        <label for="modal-3" class="system-card">
-            <div class="card-3d-object">
-                <div class="fractal-3d"></div>
-            </div>
-            <div class="card-content">
-                <div>
-                    <span class="card-tag">PATTERN SYSTEM</span>
-                    <h2 class="card-title">Fractal Pro</h2>
-                    <p class="card-description">Padrões geométricos recursivos que evoluem em complexidade com animações infinitas.</p>
-                </div>
-                <div class="card-footer">
-                    <button class="card-button">EXPLORE FRACTAL</button>
-                    <div class="card-stats">
-                        <span>∞ Recursive</span>
-                        <span>🌀 Morphing</span>
-                    </div>
-                </div>
-            </div>
-        </label>
-        
-        <!-- Card 4: Sphere System -->
-        <label for="modal-4" class="system-card">
-            <div class="card-3d-object">
-                <div class="sphere-3d"></div>
-            </div>
-            <div class="card-content">
-                <div>
-                    <span class="card-tag">ORGANIC SYSTEM</span>
-                    <h2 class="card-title">Organic Sphere</h2>
-                    <p class="card-description">Formas orgânicas com gradientes radiais complexos e efeitos de iluminação realista.</p>
-                </div>
-                <div class="card-footer">
-                    <button class="card-button">EXPLORE ORGANIC</button>
-                    <div class="card-stats">
-                        <span>⚫ Radial</span>
-                        <span>💡 Lighting</span>
-                    </div>
-                </div>
-            </div>
-        </label>
-        
-        <!-- Card 5: Pyramid System -->
-        <label for="modal-5" class="system-card">
-            <div class="card-3d-object">
-                <div class="pyramid-3d">
-                    <div class="pyramid-side"></div>
-                    <div class="pyramid-side"></div>
-                    <div class="pyramid-side"></div>
-                    <div class="pyramid-side"></div>
-                </div>
-            </div>
-            <div class="card-content">
-                <div>
-                    <span class="card-tag">ARCHITECTURE</span>
-                    <h2 class="card-title">Sacred Geometry</h2>
-                    <p class="card-description">Formas arquitetônicas sagradas com proporções matemáticas perfeitas e simbolismo.</p>
-                </div>
-                <div class="card-footer">
-                    <button class="card-button">EXPLORE SACRED</button>
-                    <div class="card-stats">
-                        <span>📐 Golden Ratio</span>
-                        <span>⚖️ Balance</span>
-                    </div>
-                </div>
-            </div>
-        </label>
-        
-        <!-- Card 6: Torus System -->
-        <label for="modal-6" class="system-card">
-            <div class="card-3d-object">
-                <div class="torus-3d"></div>
-            </div>
-            <div class="card-content">
-                <div>
-                    <span class="card-tag">ENERGY SYSTEM</span>
-                    <h2 class="card-title">Infinite Torus</h2>
-                    <p class="card-description">Forma de energia contínua com animação infinita e gradientes cônicos dinâmicos.</p>
-                </div>
-                <div class="card-footer">
-                    <button class="card-button">EXPLORE ENERGY</button>
-                    <div class="card-stats">
-                        <span>♾️ Infinite</span>
-                        <span>⚡ Power</span>
-                    </div>
-                </div>
-            </div>
-        </label>
-        
-        <!-- Card 7: Interaction System -->
-        <label for="modal-7" class="system-card">
-            <div class="card-3d-object">
-                <div class="cube-3d" style="animation-duration: 8s;">
-                    <div class="cube-face">UI</div>
-                    <div class="cube-face">UX</div>
-                    <div class="cube-face">3D</div>
-                    <div class="cube-face">CSS</div>
-                    <div class="cube-face">WEB</div>
-                    <div class="cube-face">DEV</div>
-                </div>
-            </div>
-            <div class="card-content">
-                <div>
-                    <span class="card-tag">INTERACTION</span>
-                    <h2 class="card-title">Tactile UI</h2>
-                    <p class="card-description">Sistema de interação tátil com física de pressão em tempo real e feedback háptico digital.</p>
-                </div>
-                <div class="card-footer">
-                    <button class="card-button">EXPLORE TACTILE</button>
-                    <div class="card-stats">
-                        <span>👆 Haptic</span>
-                        <span>🎮 Interactive</span>
-                    </div>
-                </div>
-            </div>
-        </label>
-        
-        <!-- Card 8: Design System -->
-        <label for="modal-8" class="system-card">
-            <div class="card-3d-object">
-                <div class="sphere-3d" style="width: 120px; height: 120px;"></div>
-            </div>
-            <div class="card-content">
-                <div>
-                    <span class="card-tag">DESIGN SYSTEM</span>
-                    <h2 class="card-title">Brand Identity</h2>
-                    <p class="card-description">Sistema completo de identidade visual com tokens de design e componentes reutilizáveis.</p>
-                </div>
-                <div class="card-footer">
-                    <button class="card-button">EXPLORE BRAND</button>
-                    <div class="card-stats">
-                        <span>🎨 Tokens</span>
-                        <span>📚 Components</span>
-                    </div>
-                </div>
-            </div>
-        </label>
-        
-        <!-- Card 9: Portfolio System -->
-        <label for="modal-9" class="system-card">
-            <div class="card-3d-object">
-                <div class="pyramid-3d" style="width: 120px; height: 120px;"></div>
-            </div>
-            <div class="card-content">
-                <div>
-                    <span class="card-tag">PORTFOLIO</span>
-                    <h2 class="card-title">Showcase 2026</h2>
-                    <p class="card-description">Coleção de projetos visionários que desafiam os limites da percepção de profundidade em 2D.</p>
-                </div>
-                <div class="card-footer">
-                    <button class="card-button">EXPLORE WORK</button>
-                    <div class="card-stats">
-                        <span>🚀 Future</span>
-                        <span>🎯 Precision</span>
-                    </div>
-                </div>
-            </div>
-        </label>
-        
-        <!-- Card 10: Tech System -->
-        <label for="modal-10" class="system-card">
-            <div class="card-3d-object">
-                <div class="torus-3d" style="width: 120px; height: 120px;"></div>
-            </div>
-            <div class="card-content">
-                <div>
-                    <span class="card-tag">TECH STACK</span>
-                    <h2 class="card-title">High Performance</h2>
-                    <p class="card-description">Stack tecnológico otimizado para velocidade extrema e eficiência máxima de recursos.</p>
-                </div>
-                <div class="card-footer">
-                    <button class="card-button">EXPLORE TECH</button>
-                    <div class="card-stats">
-                        <span>⚡ Fast</span>
-                        <span>🔧 Optimized</span>
-                    </div>
-                </div>
-            </div>
-        </label>
-        
-        <!-- Card 11: Shop System -->
-        <label for="modal-11" class="system-card">
-            <div class="card-3d-object">
-                <div class="fractal-3d" style="width: 120px; height: 120px;"></div>
-            </div>
-            <div class="card-content">
-                <div>
-                    <span class="card-tag">DIGITAL ASSETS</span>
-                    <h2 class="card-title">Premium Shop</h2>
-                    <p class="card-description">Ativos digitais exclusivos e recursos premium para projetos criativos de alta qualidade.</p>
-                </div>
-                <div class="card-footer">
-                    <button class="card-button">EXPLORE SHOP</button>
-                    <div class="card-stats">
-                        <span>💎 Premium</span>
-                        <span>🎁 Assets</span>
-                    </div>
-                </div>
-            </div>
-        </label>
-        
-        <!-- Card 12: AI System -->
-        <label for="modal-12" class="system-card">
-            <div class="card-3d-object">
-                <div class="icosahedron-3d" style="width: 120px; height: 120px;"></div>
-            </div>
-            <div class="card-content">
-                <div>
-                    <span class="card-tag">AI SYSTEM</span>
-                    <h2 class="card-title">Neural Assistant</h2>
-                    <p class="card-description">Assistente inteligente para otimização de workflows e geração automática de componentes.</p>
-                </div>
-                <div class="card-footer">
-                    <button class="card-button">EXPLORE AI</button>
-                    <div class="card-stats">
-                        <span>🧠 Neural</span>
-                        <span>🤖 AI</span>
-                    </div>
-                </div>
-            </div>
-        </label>
-        
-    </div>
-    
-    <!-- ===== MODAIS DO SISTEMA ===== -->
-    
-    <!-- Modal 1 -->
-    <div class="modal-system" data-modal="1">
-        <label for="modal-none" class="modal-backdrop"></label>
-        <div class="modal-container">
-            <div class="modal-header">
-                <div>
-                    <span class="card-tag">SYSTEM CORE</span>
-                    <h1 class="modal-title">Geometry Engine</h1>
-                    <p class="modal-subtitle">Sistema de renderização 3D em CSS puro com 12 formas geométricas únicas e animações complexas controladas por variáveis CSS dinâmicas.</p>
-                </div>
-                <label for="modal-none" class="modal-close">×</label>
-            </div>
-            <div class="modal-content">
-                <div class="modal-3d-display">
-                    <div class="card-3d-object modal-3d-large">
-                        <div class="cube-3d">
-                            <div class="cube-face">3D</div>
-                            <div class="cube-face">CSS</div>
-                            <div class="cube-face">OMNI</div>
-                            <div class="cube-face">NEXUS</div>
-                            <div class="cube-face">FUSION</div>
-                            <div class="cube-face">2026</div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h3 style="margin-bottom: 20px; font-size: 1.2rem; color: var(--text-primary);">Sistema de Formas 3D</h3>
-                    <ul class="modal-features">
-                        <li>12 formas geométricas únicas renderizadas em CSS</li>
-                        <li>Animações complexas com múltiplos eixos de rotação</li>
-                        <li>Sistema de profundidade com perspectiva variável</li>
-                        <li>Gradientes dinâmicos baseados no tema ativo</li>
-                        <li>Interação 3D realista com efeitos de hover</li>
-                        <li>Performance otimizada para 60 FPS contínuos</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <label for="modal-12" class="modal-button">← Sistema Anterior</label>
-                <label for="modal-2" class="modal-button primary">Próximo Sistema →</label>
-                <label for="modal-none" class="modal-button">Fechar</label>
-            </div>
+
+    <!-- MODAIS -->
+    <div class="modal" data-modal="1">
+        <label for="close" class="modal-close">×</label>
+        <div class="modal-content">
+            <h1 class="modal-title">Geometry Engine</h1>
+            <div class="modal-3d"><div class="obj3d"><div class="cube">
+                <div class="face">3D</div><div class="face">CSS</div><div class="face">WEB</div>
+                <div class="face">DEV</div><div class="face">UI</div><div class="face">UX</div>
+            </div></div></div>
+            <p>Sistema de renderização 3D em CSS puro com 12 formas geométricas únicas e animações complexas controladas por variáveis CSS dinâmicas.</p>
         </div>
     </div>
-    
-    <!-- Modal 2 -->
-    <div class="modal-system" data-modal="2">
-        <label for="modal-none" class="modal-backdrop"></label>
-        <div class="modal-container">
-            <div class="modal-header">
-                <div>
-                    <span class="card-tag">VISUAL SYSTEM</span>
-                    <h1 class="modal-title">Titanium Glass</h1>
-                    <p class="modal-subtitle">Glassmorphism avançado com efeitos de profundidade realista, transparências dinâmicas e sistema de iluminação baseado em variáveis CSS.</p>
-                </div>
-                <label for="modal-none" class="modal-close">×</label>
-            </div>
-            <div class="modal-content">
-                <div class="modal-3d-display">
-                    <div class="card-3d-object modal-3d-large">
-                        <div class="icosahedron-3d">
-                            <div class="icosa-face f1"></div>
-                            <div class="icosa-face f2"></div>
-                            <div class="icosa-face f3"></div>
-                            <div class="icosa-face f4"></div>
-                            <div class="icosa-face f5"></div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h3 style="margin-bottom: 20px; font-size: 1.2rem; color: var(--text-primary);">Sistema Visual Avançado</h3>
-                    <ul class="modal-features">
-                        <li>Efeitos de vidro com blur dinâmico (até 20px)</li>
-                        <li>Bordas luminosas e reflexos realistas</li>
-                        <li>Transições suaves entre modos claro/escuro</li>
-                        <li>Sistema de sombras em múltiplas camadas</li>
-                        <li>Efeitos de profundidade com perspectiva 3D</li>
-                        <li>Gradientes complexos com múltiplas paradas</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <label for="modal-1" class="modal-button">← Sistema Anterior</label>
-                <label for="modal-3" class="modal-button primary">Próximo Sistema →</label>
-                <label for="modal-none" class="modal-button">Fechar</label>
-            </div>
+
+    <div class="modal" data-modal="2">
+        <label for="close" class="modal-close">×</label>
+        <div class="modal-content">
+            <h1 class="modal-title">Titanium Glass</h1>
+            <div class="modal-3d"><div class="obj3d"><div class="sphere"></div></div></div>
+            <p>Glassmorphism avançado com efeitos de profundidade realista, transparências dinâmicas e sistema de iluminação baseado em variáveis CSS.</p>
         </div>
     </div>
-    
-    <!-- Modal 3 -->
-    <div class="modal-system" data-modal="3">
-        <label for="modal-none" class="modal-backdrop"></label>
-        <div class="modal-container">
-            <div class="modal-header">
-                <div>
-                    <span class="card-tag">PATTERN SYSTEM</span>
-                    <h1 class="modal-title">Fractal Pro</h1>
-                    <p class="card-description">Padrões geométricos recursivos que evoluem em complexidade com animações infinitas e morphing contínuo.</p>
-                </div>
-                <label for="modal-none" class="modal-close">×</label>
-            </div>
-            <div class="modal-content">
-                <div class="modal-3d-display">
-                    <div class="card-3d-object modal-3d-large">
-                        <div class="fractal-3d"></div>
-                    </div>
-                </div>
-                <div>
-                    <h3 style="margin-bottom: 20px; font-size: 1.2rem; color: var(--text-primary);">Sistema de Padrões Recursivos</h3>
-                    <ul class="modal-features">
-                        <li>Padrões fractais com múltiplos níveis de recursão</li>
-                        <li>Animações de morphing contínuo e suave</li>
-                        <li>Transições entre diferentes padrões geométricos</li>
-                        <li>Sistema de cores dinâmico baseado no tema</li>
-                        <li>Efeitos de rotação em múltiplos eixos simultâneos</li>
-                        <li>Performance otimizada para animações complexas</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <label for="modal-2" class="modal-button">← Sistema Anterior</label>
-                <label for="modal-4" class="modal-button primary">Próximo Sistema →</label>
-                <label for="modal-none" class="modal-button">Fechar</label>
-            </div>
+
+    <div class="modal" data-modal="3">
+        <label for="close" class="modal-close">×</label>
+        <div class="modal-content">
+            <h1 class="modal-title">Sacred Geometry</h1>
+            <div class="modal-3d"><div class="obj3d"><div class="pyramid">
+                <div class="pside"></div><div class="pside"></div><div class="pside"></div><div class="pside"></div>
+            </div></div></div>
+            <p>Formas arquitetônicas sagradas com proporções matemáticas perfeitas e simbolismo geométrico ancestral.</p>
         </div>
     </div>
-    
-    <!-- ===== PAINEL DE CONTROLE ===== -->
-    <div class="control-panel">
-        <label for="theme-toggle" class="control-button theme"></label>
-        <label for="confirm-action" class="control-button confirm">
-            <i class="fas fa-bolt"></i>
-        </label>
+
+    <div class="modal" data-modal="4">
+        <label for="close" class="modal-close">×</label>
+        <div class="modal-content">
+            <h1 class="modal-title">Infinite Torus</h1>
+            <div class="modal-3d"><div class="obj3d"><div class="torus"></div></div></div>
+            <p>Forma de energia contínua com animação infinita e gradientes cônicos dinâmicos que simbolizam fluxo perpétuo.</p>
+        </div>
     </div>
-    
+
+    <div class="modal" data-modal="5">
+        <label for="close" class="modal-close">×</label>
+        <div class="modal-content">
+            <h1 class="modal-title">Organic Sphere</h1>
+            <div class="modal-3d"><div class="obj3d"><div class="sphere"></div></div></div>
+            <p>Formas orgânicas com gradientes radiais complexos e efeitos de iluminação realista que simulam profundidade.</p>
+        </div>
+    </div>
+
+    <div class="modal" data-modal="6">
+        <label for="close" class="modal-close">×</label>
+        <div class="modal-content">
+            <h1 class="modal-title">Tactile UI</h1>
+            <div class="modal-3d"><div class="obj3d"><div class="cube">
+                <div class="face">UI</div><div class="face">UX</div><div class="face">3D</div>
+                <div class="face">CSS</div><div class="face">WEB</div><div class="face">DEV</div>
+            </div></div></div>
+            <p>Sistema de interação tátil com física de pressão em tempo real e feedback háptico digital imersivo.</p>
+        </div>
+    </div>
+
+    <div class="modal" data-modal="7">
+        <label for="close" class="modal-close">×</label>
+        <div class="modal-content">
+            <h1 class="modal-title">Showcase 2026</h1>
+            <div class="modal-3d"><div class="obj3d"><div class="pyramid">
+                <div class="pside"></div><div class="pside"></div><div class="pside"></div><div class="pside"></div>
+            </div></div></div>
+            <p>Coleção de projetos visionários que desafiam os limites da percepção de profundidade em interfaces 2D.</p>
+        </div>
+    </div>
+
+    <div class="modal" data-modal="8">
+        <label for="close" class="modal-close">×</label>
+        <div class="modal-content">
+            <h1 class="modal-title">High Performance</h1>
+            <div class="modal-3d"><div class="obj3d"><div class="torus"></div></div></div>
+            <p>Stack tecnológico otimizado para velocidade extrema e eficiência máxima de recursos computacionais.</p>
+        </div>
+    </div>
+
+    <div class="modal" data-modal="9">
+        <label for="close" class="modal-close">×</label>
+        <div class="modal-content">
+            <h1 class="modal-title">Brand Identity</h1>
+            <div class="modal-3d"><div class="obj3d"><div class="sphere"></div></div></div>
+            <p>Sistema completo de identidade visual com tokens de design e componentes reutilizáveis escaláveis.</p>
+        </div>
+    </div>
+
+    <div class="modal" data-modal="10">
+        <label for="close" class="modal-close">×</label>
+        <div class="modal-content">
+            <h1 class="modal-title">Neural Assistant</h1>
+            <div class="modal-3d"><div class="obj3d"><div class="cube">
+                <div class="face">AI</div><div class="face">ML</div><div class="face">3D</div>
+                <div class="face">CSS</div><div class="face">WEB</div><div class="face">DEV</div>
+            </div></div></div>
+            <p>Assistente inteligente para otimização de workflows e geração automática de componentes com IA.</p>
+        </div>
+    </div>
+
+    <div class="modal" data-modal="11">
+        <label for="close" class="modal-close">×</label>
+        <div class="modal-content">
+            <h1 class="modal-title">Premium Shop</h1>
+            <div class="modal-3d"><div class="obj3d"><div class="pyramid">
+                <div class="pside"></div><div class="pside"></div><div class="pside"></div><div class="pside"></div>
+            </div></div></div>
+            <p>Ativos digitais exclusivos e recursos premium para projetos criativos de alta qualidade e impacto visual.</p>
+        </div>
+    </div>
+
+    <div class="modal" data-modal="12">
+        <label for="close" class="modal-close">×</label>
+        <div class="modal-content">
+            <h1 class="modal-title">Cloud System</h1>
+            <div class="modal-3d"><div class="obj3d"><div class="torus"></div></div></div>
+            <p>Infraestrutura escalável em nuvem para projetos de qualquer tamanho com hospedagem otimizada.</p>
+        </div>
+    </div>
+
+    <div class="controls">
+        <label for="theme" class="ctrl-btn">🌙</label>
+    </div>
 </body>
 </html>
